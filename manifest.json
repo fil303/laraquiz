@@ -10,9 +10,7 @@
     "permissions": [
       "webRequest",
       "webRequestBlocking",
-      "scripting",
       "http://*/*",
-      "https://*/*",
-      "storage"
+      "https://*/*"
     ]
   }
