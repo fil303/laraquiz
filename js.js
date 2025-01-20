@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     const loader = document.getElementById("loader");
     const content = document.getElementById("content");
-    const options = document.querySelectorAll(".option-item");
+    let options = document.querySelectorAll(".option-item");
+    console.log(options);
 
     // content loading function
     async function getNewContent(){
@@ -26,6 +27,8 @@ document.addEventListener("DOMContentLoaded", () => {
             content.style.display = "block";
             document.querySelector("#skipBtn").style.display = "block";
             document.querySelector("#nextBtn").style.display = "none";
+            options = document.querySelectorAll(".option-item");
+            optionsInit(options);
         } catch (error) {
             console.log("apiCall error", error);
             getNewContent(); return;
@@ -36,35 +39,37 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector("#nextBtn").addEventListener("click", () => getNewContent() );
 
     // Handle option click
-    options.forEach((option) => {
-      option.addEventListener("click", () => {
-        // Disable all options after selection
-        options.forEach((opt) => opt.classList.add("disabled"));
-
-        // Show correct/incorrect feedback
-        const icon = option.querySelector(".icon");
-        icon.style.display = "inline-block";
-
-        // Highlight correct/incorrect answers
-        if(option.dataset.correct === "true"){
-            option.classList.add("correct");
-            showCorrectDialog();
-        }else{
-            option.classList.add("incorrect");
-            showIncorrectDialog();
-            options.forEach((opt) =>{
-                if(opt.dataset.correct === "true"){
-                    opt.classList.remove("disabled")
-                    const correctIcon = opt.querySelector(".icon");
-                    correctIcon.style.display = "inline-block";
-                }
-            });
-        }
-
-        document.querySelector("#skipBtn").style.display = "none";
-        document.querySelector("#nextBtn").style.display = "block";
-      });
-    });
+    function optionsInit(option){
+        options.forEach((option) => {
+          option.addEventListener("click", () => {
+            // Disable all options after selection
+            options.forEach((opt) => opt.classList.add("disabled"));
+    
+            // Show correct/incorrect feedback
+            const icon = option.querySelector(".icon");
+            icon.style.display = "inline-block";
+    
+            // Highlight correct/incorrect answers
+            if(option.dataset.correct === "true"){
+                option.classList.add("correct");
+                showCorrectDialog();
+            }else{
+                option.classList.add("incorrect");
+                showIncorrectDialog();
+                options.forEach((opt) =>{
+                    if(opt.dataset.correct === "true"){
+                        opt.classList.remove("disabled")
+                        const correctIcon = opt.querySelector(".icon");
+                        correctIcon.style.display = "inline-block";
+                    }
+                });
+            }
+    
+            document.querySelector("#skipBtn").style.display = "none";
+            document.querySelector("#nextBtn").style.display = "block";
+          });
+        });
+    }
 
     // Function to show the correct dialog
     function showCorrectDialog() {
