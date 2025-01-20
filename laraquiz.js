@@ -11,16 +11,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if(!apiCall.ok){
                 console.log("apiCall not ok");
-                getNewContent(); return;
+                return;
             }
 
             let data = await apiCall.json();
             if(!data.status){
                 console.log("apiCall data status not ok");
-                getNewContent(); return;
+                return;
             }
 
-            document.querySelector('#content').innerHTML = data.html;
+            if(!data.data){
+                console.log("apiCall data not found");
+                return;
+            }
 
             stopLoader();
             document.querySelector("#skipBtn").style.display = "block";
@@ -29,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
             optionsInit(options);
         } catch (error) {
             console.log("apiCall error", error);
-            getNewContent(); return;
+            return;
         }
     }   getNewContent();
 
@@ -101,5 +104,28 @@ document.addEventListener("DOMContentLoaded", () => {
     {
         loader.style.display = "none";
         content.style.display = "block";
+    }
+
+    function setData(quiz){
+        let question = document.querySelector('#question');
+        let option1 = document.querySelector('#option_one');
+        let option2 = document.querySelector('#option_two');
+        let option3 = document.querySelector('#option_three');
+        let option4 = document.querySelector('#option_four');
+        let option1_list = document.querySelector('#option_one_list');
+        let option2_list = document.querySelector('#option_two_list');
+        let option3_list = document.querySelector('#option_three_list');
+        let option4_list = document.querySelector('#option_four_list');
+
+        question.textContent(quiz.question);
+        option1.textContent(quiz.option_one);
+        option2.textContent(quiz.option_two);
+        option3.textContent(quiz.option_three);
+        option4.textContent(quiz.option_four);
+        
+        option1_list.dataset.correct = quiz.option_answer == 1 ? 'true' : 'false';
+        option2_list.dataset.correct = quiz.option_answer == 2 ? 'true' : 'false';
+        option3_list.dataset.correct = quiz.option_answer == 3 ? 'true' : 'false';
+        option4_list.dataset.correct = quiz.option_answer == 4 ? 'true' : 'false';
     }
 });

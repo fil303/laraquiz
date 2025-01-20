@@ -18,12 +18,10 @@ class QuizController extends Controller
             ]);
         }
 
-        $html = view('quiz-options', ['quiz' => $quiz])->render();
         return response()->json([
             "status"  => true,
             "message" => "Success",
-            "html"    => $html,
-            "data"    => null
+            "data"    => $quiz
         ]);
     }
 }
