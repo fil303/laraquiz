@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // content loading function
     async function getNewContent(){
         try {
+            startLoader();
             let apiCall = await fetch('http://laraquiz.filxtech.tech/api/random-quiz');
 
             if(!apiCall.ok){
@@ -23,8 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             document.querySelector('#content').innerHTML = data.html;
 
-            loader.style.display = "none";
-            content.style.display = "block";
+            stopLoader();
             document.querySelector("#skipBtn").style.display = "block";
             document.querySelector("#nextBtn").style.display = "none";
             options = document.querySelectorAll(".option-item");
@@ -91,5 +91,17 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll('.dialog').forEach(dialog => {
             dialog.style.display = 'none';
         });
+    }
+
+    function startLoader()
+    {
+        // loader.style.display = "block";
+        //content.style.display = "none";
+    }
+
+    function stopLoader()
+    {
+        loader.style.display = "none";
+        content.style.display = "block";
     }
 });
