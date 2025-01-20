@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const loader = document.getElementById("loader");
     const content = document.getElementById("content");
     let options = document.querySelectorAll(".option-item");
-    console.log(options);
 
     // content loading function
     async function getNewContent(){
@@ -16,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             let data = await apiCall.json();
-            console.log("data", data);
             if(!data.status){
                 console.log("apiCall data status not ok");
                 getNewContent(); return;
