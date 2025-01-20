@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.log("apiCall data not found");
                 return;
             }
-
+            setData(data.data);
             stopLoader();
             document.querySelector("#skipBtn").style.display = "block";
             document.querySelector("#nextBtn").style.display = "none";
@@ -40,18 +40,29 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector("#nextBtn").addEventListener("click", () => getNewContent() );
 
     // Handle option click
-    function optionsInit(option){
+    function optionsInit(options){
         options.forEach((option) => {
+
+          option.querySelector(".green-tick").style.display = "none";
+          option.querySelector(".red-cross").style.display = "none";
+          option.querySelector(".red-cross").style.display = "none";
+          option.classList.remove("disabled");
+          option.classList.remove("correct");
+          option.classList.remove("incorrect");
+
           option.addEventListener("click", () => {
             // Disable all options after selection
             options.forEach((opt) => opt.classList.add("disabled"));
     
             // Show correct/incorrect feedback
-            const icon = option.querySelector(".icon");
+            const icon = option.querySelector(".red-cross");
             icon.style.display = "inline-block";
     
             // Highlight correct/incorrect answers
             if(option.dataset.correct === "true"){
+                const correctIcon = option.querySelector(".green-tick");
+                correctIcon.style.display = "inline-block";
+                icon.style.display = "none";
                 option.classList.add("correct");
                 showCorrectDialog();
             }else{
@@ -60,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 options.forEach((opt) =>{
                     if(opt.dataset.correct === "true"){
                         opt.classList.remove("disabled")
-                        const correctIcon = opt.querySelector(".icon");
+                        const correctIcon = opt.querySelector(".green-tick");
                         correctIcon.style.display = "inline-block";
                     }
                 });
@@ -117,12 +128,12 @@ document.addEventListener("DOMContentLoaded", () => {
         let option3_list = document.querySelector('#option_three_list');
         let option4_list = document.querySelector('#option_four_list');
 
-        question.textContent(quiz.question);
-        option1.textContent(quiz.option_one);
-        option2.textContent(quiz.option_two);
-        option3.textContent(quiz.option_three);
-        option4.textContent(quiz.option_four);
-        
+        question.textContent = quiz.question;
+        option1.textContent = quiz.option_one;
+        option2.textContent = quiz.option_two;
+        option3.textContent = quiz.option_three;
+        option4.textContent = quiz.option_four;
+
         option1_list.dataset.correct = quiz.option_answer == 1 ? 'true' : 'false';
         option2_list.dataset.correct = quiz.option_answer == 2 ? 'true' : 'false';
         option3_list.dataset.correct = quiz.option_answer == 3 ? 'true' : 'false';
