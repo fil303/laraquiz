@@ -1,8 +1,8 @@
 {
     "manifest_version": 2,
-    "name": "Laravel MCQ",
+    "name": "LaraQuiz",
     "version": "1.0",
-    "description": "Laravel MCQ",
+    "description": "LaraQuiz",
     "browser_action": {
       "default_icon": "icon.png",
       "default_popup": "index.html"
