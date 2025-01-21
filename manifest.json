@@ -1,16 +1,28 @@
 {
-    "manifest_version": 2,
+    "manifest_version": 3,
     "name": "LaraQuiz",
     "version": "1.0",
-    "description": "LaraQuiz",
-    "browser_action": {
-      "default_icon": "icon.png",
-      "default_popup": "index.html"
+    "description": "An interactive quiz and learning tool for Laravel developers.",
+    "action": {
+      "default_icon": {
+        "16": "icon16.png",
+        "48": "icon48.png",
+        "128": "icon128.png"
+      },
+      "default_popup": "index.html",
+      "default_title": "LaraQuiz"
     },
     "permissions": [
-      "webRequest",
-      "webRequestBlocking",
+      "webRequest"
+    ],
+    "host_permissions": [
       "http://*/*",
       "https://*/*"
-    ]
+    ],
+    "icons": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
   }
+  
